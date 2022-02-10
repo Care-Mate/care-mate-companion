@@ -5,28 +5,28 @@ import { Coordinate } from '../bluetooth/bluetooth.service';
   providedIn: 'root'
 })
 export class CalibrationService {
-  private Zero: Array<Coordinate>;
+  private Zero: number[][];
 
   constructor() { 
-    this.Zero = [];
+    this.Zero = null;
   }
 
-  manualCalibration(zero : number) {
-    this.Zero = [];
-    for(var i = 1; i<=8; i++)
-    {
-      for(var j = 1; j<=8; j++)
-      {
-        this.Zero.push({x: i, y: j, value: zero});
-      }
-    }
-  }
-
-  automaticCalibration(zero : Array<Coordinate>) {
+  setCalibration(zero : number[][]) {
     this.Zero = zero;
   }
 
-  getCalibration() {
-    return this.Zero;
+  getCalibration(to_calibrate: number[][]) {
+    if(this.Zero == null){
+      //FIX: if the calibration array is not set, it returns the input array
+      console.warn("Calibration array not set yet");
+      return to_calibrate;
+    }
+    var calibrated_array : number[][];
+    for(var i = 0; i< this.Zero.length; i++){
+      for(var j = 0; j < this.Zero[i].length; j++){
+        calibrated_array[i][j] = to_calibrate[i][j]-this.Zero[i][j];
+      }
+    }
+    return calibrated_array;
   }
 }
