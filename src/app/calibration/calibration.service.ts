@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Coordinate } from '../bluetooth/bluetooth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +20,7 @@ export class CalibrationService {
       console.warn("Calibration array not set yet");
       return to_calibrate;
     }
-    var calibrated_array : number[][];
+    var calibrated_array : number[][] = [[],[]]; // Needed to initialize or else error occurs
     for(var i = 0; i< this.Zero.length; i++){
       for(var j = 0; j < this.Zero[i].length; j++){
         calibrated_array[i][j] = to_calibrate[i][j]-this.Zero[i][j];
