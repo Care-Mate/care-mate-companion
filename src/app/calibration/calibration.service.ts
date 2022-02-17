@@ -1,32 +1,45 @@
 import { Injectable } from '@angular/core';
-import { Coordinate } from '../bluetooth/bluetooth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CalibrationService {
-  private Zero: number[][];
+  private Back: number[][];
+  private Bottom: number[][];
 
   constructor() { 
-    this.Zero = null;
+    this.Back = null;
+    this.Bottom = null;
   }
 
-  setCalibration(zero : number[][]) {
-    this.Zero = zero;
+  setBackCalibration(zero : number[][]) {
+    this.Back = zero;
   }
 
-  getCalibration(to_calibrate: number[][]) {
-    if(this.Zero == null){
+  setBottomCalibration(zero : number[][]) {
+    this.Bottom = zero;
+  }
+
+  getCalibration(calibration: number[][], to_calibrate: number[][]) {
+    if(calibration == null){
       //FIX: if the calibration array is not set, it returns the input array
       console.warn("Calibration array not set yet");
       return to_calibrate;
     }
     var calibrated_array : number[][];
-    for(var i = 0; i< this.Zero.length; i++){
-      for(var j = 0; j < this.Zero[i].length; j++){
-        calibrated_array[i][j] = to_calibrate[i][j]-this.Zero[i][j];
+    for(var i = 0; i< calibration.length; i++){
+      for(var j = 0; j < calibration[i].length; j++){
+        calibrated_array[i][j] = to_calibrate[i][j]-calibration[i][j];
       }
     }
     return calibrated_array;
+  }
+
+  getBackCalibration(to_calibrate: number[][]){
+    return this.getCalibration(this.Back, to_calibrate);
+  }
+
+  getBottomCalibration(to_calibrate: number[][]){
+    return this.getCalibration(this.Bottom, to_calibrate);
   }
 }
