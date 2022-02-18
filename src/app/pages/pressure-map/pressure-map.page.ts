@@ -28,18 +28,25 @@ export class PressureMapPage implements OnInit {
   private heatmapConfiguration : any = {
     width: 400,
     height: 400,
-    opacity: 0.8,
-    radius: 7,
+    radius: 70,
     visible: true,
   };
   private heatmap : any;
   private heatmapData : any[]; 
 
+  private xscale : number;
+  private yscale : number;
+  private xoffset : number;
+  private yoffset : number;
+
   constructor (
-    //private CalibrationService : CalibrationService,
-    //private BluetoothService : BluetoothService
+    private CalibrationService : CalibrationService,
   )
   {
+    this.xscale = this.heatmapConfiguration.width / 8; // TODO: replace 8 with width obtained from service
+    this.yscale = this.heatmapConfiguration.height / 8; // TODO: ^^^
+    this.xoffset = this.xscale / 2;
+    this.yoffset = this.yscale / 2;
   }
 
   ngOnInit() {
@@ -47,9 +54,15 @@ export class PressureMapPage implements OnInit {
     this.heatmap = h337.create(this.heatmapConfiguration);
 
     this.heatmapData = [];
+
+
+
     for (var i = 0; i < 8; i++) {
       for (var j = 0; j < 8; j++) {
-        this.heatmapData.push({x: i, y: j, value: Math.random()});
+        this.heatmapData.push({
+          x: i*this.xscale + this.xoffset,
+          y: j*this.yscale + this.yoffset,
+          value: Math.random()});
       }
     }
 
