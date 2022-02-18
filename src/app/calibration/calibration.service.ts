@@ -21,15 +21,16 @@ export class CalibrationService {
   }
 
   getCalibration(calibration: number[][], to_calibrate: number[][]) {
+    // FIX: Add connectivity to bluetooth
     if(calibration == null){
-      //FIX: if the calibration array is not set, it returns the input array
+      // FIX: if the calibration array is not set, it returns the input array
       console.warn("Calibration array not set yet");
       return to_calibrate;
     }
     var calibrated_array = to_calibrate;
     for(var i = 0; i< calibration.length; i++){
       for(var j = 0; j < calibration[i].length; j++){
-        calibrated_array[i][j] = calibrated_array[i][j]-calibration[i][j];
+        calibrated_array[i][j] = calibration[i][j] - calibrated_array[i][j];
       }
     }
     return calibrated_array;
