@@ -26,10 +26,10 @@ export class CalibrationService {
       console.warn("Calibration array not set yet");
       return to_calibrate;
     }
-    var calibrated_array : number[][];
+    var calibrated_array = to_calibrate;
     for(var i = 0; i< calibration.length; i++){
       for(var j = 0; j < calibration[i].length; j++){
-        calibrated_array[i][j] = to_calibrate[i][j]-calibration[i][j];
+        calibrated_array[i][j] = calibrated_array[i][j]-calibration[i][j];
       }
     }
     return calibrated_array;
