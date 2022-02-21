@@ -1,0 +1,48 @@
+import { Injectable } from "@angular/core";
+import { BluetoothSerial, BluetoothScanResult, BluetoothConnectOptions, BluetoothEnabledResult } from "capacitor-bluetooth-serial";
+import { Coordinate, BluetoothService } from "./bluetooth.service";
+
+@Injectable({providedIn: 'root'})
+export class HC06BluetoothService implements BluetoothService {
+
+    address:string;
+
+    enableBluetooth(): Promise<BluetoothEnabledResult> {
+        return BluetoothSerial.enable();
+    }
+    scanForDevices(): Promise<BluetoothScanResult> {
+        return BluetoothSerial.scan();
+    }
+    connectToDevice(address:string): Promise<void> {
+        this.address = address;
+        return BluetoothSerial.connect({address:this.address});
+    }
+    readPressureData(): Promise<Coordinate[]> {
+        return new Promise<Coordinate[]>((resolve, reject) => {
+            var coords: Coordinate[] = [];
+            BluetoothSerial.readUntil(
+                {
+                    address: this.address, 
+                    delimiter: String.fromCharCode(255)
+                }).then(res => {
+                    var data = res.data;
+                    var counter = 0;
+
+                    for(var i = 1; 1<=8; i++) {
+                        for(var j = 1; j<=8; j++) {
+                            if(counter >= data.length) {
+                                coords.push({x: i, y: j, value: 0});
+                            }
+                            else {
+                                coords.push({x: i, y: j, value: data.charCodeAt(counter)});
+                                counter++;
+                            }
+                        }
+                    }
+                    resolve(coords);
+                }).catch(error => {
+                    reject(error);
+                });
+        });
+    }
+}
