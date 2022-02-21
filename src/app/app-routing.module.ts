@@ -8,10 +8,6 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'main',
-    loadChildren: () => import('./main/main.module').then( m => m.MainPageModule)
-  },
-  {
     path: 'pressure-map',
     loadChildren: () => import('./pages/pressure-map/pressure-map.module').then( m => m.PressureMapPageModule)
   },

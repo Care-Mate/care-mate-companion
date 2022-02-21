@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core'
-import { BluetoothConnectOptions, BluetoothScanResult } from 'capacitor-bluetooth-serial';
+import { BluetoothConnectOptions, BluetoothEnabledResult, BluetoothScanResult } from 'capacitor-bluetooth-serial';
 
 export interface Coordinate {
     x: number;
@@ -9,7 +9,8 @@ export interface Coordinate {
 
 @Injectable()
 export abstract class BluetoothService {
+    abstract enableBluetooth(): Promise<BluetoothEnabledResult>;
     abstract scanForDevices(): Promise<BluetoothScanResult>;
-    abstract connectToDevice(options: BluetoothConnectOptions): Promise<void>;
+    abstract connectToDevice(address:string): Promise<void>;
     abstract readPressureData(): Promise<Coordinate[]>;
 }

@@ -1,13 +1,16 @@
 import { Injectable } from "@angular/core";
-import { BluetoothScanResult, BluetoothConnectOptions } from "capacitor-bluetooth-serial";
+import { BluetoothScanResult, BluetoothConnectOptions, BluetoothEnabledResult } from "capacitor-bluetooth-serial";
 import { Coordinate, BluetoothService } from "./bluetooth.service";
 
 @Injectable({providedIn: 'root'})
 export class LocalBluetoothService implements BluetoothService {
+    enableBluetooth(): Promise<BluetoothEnabledResult> {
+        throw new Error("Method not implemented.");
+    }
     scanForDevices(): Promise<BluetoothScanResult> {
         throw new Error("Method not implemented.");
     }
-    connectToDevice(options: BluetoothConnectOptions): Promise<void> {
+    connectToDevice(address:string): Promise<void> {
         throw new Error("Method not implemented.");
     }
     readPressureData(): Promise<Coordinate[]> {
