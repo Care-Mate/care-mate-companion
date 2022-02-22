@@ -13,14 +13,15 @@ export class LocalBluetoothService implements BluetoothService {
     connectToDevice(address:string): Promise<void> {
         throw new Error("Method not implemented.");
     }
-    readPressureData(): Promise<Coordinate[]> {
-        return new Promise<Coordinate[]>((resolve, reject)=>{
-            var coordinates: Array<Coordinate> = [];
+    readPressureData(): Promise<Array<Array<number>>> {
+        return new Promise<Array<Array<number>>>((resolve, reject)=>{
+            var coordinates: Array<Array<number>> = [];
             for(var i = 1; i<=8; i++)
             {
+                coordinates.push([])
                 for(var j = 1; j<=8; j++)
                 {
-                    coordinates.push({x: i, y: j, value: Math.random()});
+                    coordinates[i].push(Math.random());
                 }
             }
             resolve(coordinates);

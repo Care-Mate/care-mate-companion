@@ -4,24 +4,26 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class CalibrationService {
-  private Back: number[][];
-  private Bottom: number[][];
+  private Back: Array<Array<number>>;
+  private Bottom: Array<Array<number>>;
 
   constructor() { 
     this.Back = null;
     this.Bottom = null;
   }
 
-  setBackCalibration(zero : number[][]) {
+  setBackCalibration(zero : Array<Array<number>>) {
+
     this.Back = zero;
   }
 
-  setBottomCalibration(zero : number[][]) {
+  setBottomCalibration(zero : Array<Array<number>>) {
+
     this.Bottom = zero;
   }
 
-  getCalibration(calibration: number[][], to_calibrate: number[][]) {
-    // FIX: Add connectivity to bluetooth
+  // FIX: make private
+  getCalibration(calibration: Array<Array<number>>, to_calibrate: Array<Array<number>>) {
     if(calibration == null){
       // FIX: if the calibration array is not set, it returns the input array
       console.warn("Calibration array not set yet");
@@ -36,11 +38,13 @@ export class CalibrationService {
     return calibrated_array;
   }
 
-  getBackCalibration(to_calibrate: number[][]){
+  getBackCalibration(to_calibrate: Array<Array<number>>){
+
     return this.getCalibration(this.Back, to_calibrate);
   }
 
-  getBottomCalibration(to_calibrate: number[][]){
+  getBottomCalibration(to_calibrate: Array<Array<number>>){
+
     return this.getCalibration(this.Bottom, to_calibrate);
   }
 }
