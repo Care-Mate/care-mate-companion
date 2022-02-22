@@ -13,38 +13,42 @@ export class CalibrationService {
   }
 
   setBackCalibration(zero : Array<Array<number>>) {
-
     this.Back = zero;
   }
 
   setBottomCalibration(zero : Array<Array<number>>) {
-
     this.Bottom = zero;
   }
 
   // FIX: make private
-  getCalibration(calibration: Array<Array<number>>, to_calibrate: Array<Array<number>>) {
+  calibrateArray(calibration: Array<Array<number>>, to_calibrate: Array<Array<number>>) {
     if(calibration == null){
       // FIX: if the calibration array is not set, it returns the input array
       console.warn("Calibration array not set yet");
       return to_calibrate;
     }
-    var calibrated_array = to_calibrate;
     for(var i = 0; i< calibration.length; i++){
       for(var j = 0; j < calibration[i].length; j++){
-        calibrated_array[i][j] = calibration[i][j] - calibrated_array[i][j];
+        to_calibrate[i][j] = calibration[i][j] - to_calibrate[i][j];
       }
     }
-    return calibrated_array;
   }
 
   getBackCalibration(to_calibrate: Array<Array<number>>){
-
-    return this.getCalibration(this.Back, to_calibrate);
+    var calibrated_array = []
+    // Coppy array
+    for(var i = 0; i< to_calibrate.length; i++){
+      calibrated_array.push([... to_calibrate[i]])
+    }
+    return this.calibrateArray(this.Back, to_calibrate);
   }
 
   getBottomCalibration(to_calibrate: Array<Array<number>>){
-
-    return this.getCalibration(this.Bottom, to_calibrate);
+    var calibrated_array = []
+    // Coppy array
+    for(var i = 0; i< to_calibrate.length; i++){
+      calibrated_array.push([... to_calibrate[i]])
+    }
+    return this.calibrateArray(this.Bottom, to_calibrate);
   }
 }
