@@ -4,28 +4,54 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class CalibrationService {
-  private Zero: number[][];
+  private Back: Array<Array<number>>;
+  private Bottom: Array<Array<number>>;
 
   constructor() { 
-    this.Zero = null;
+    this.Back = null;
+    this.Bottom = null;
   }
 
-  setCalibration(zero : number[][]) {
-    this.Zero = zero;
+  setBackCalibration(zero : Array<Array<number>>) {
+    this.Back = zero;
   }
 
-  getCalibration(to_calibrate: number[][]) {
-    if(this.Zero == null){
-      //FIX: if the calibration array is not set, it returns the input array
+  setBottomCalibration(zero : Array<Array<number>>) {
+    this.Bottom = zero;
+  }
+
+  // FIX: make private
+  calibrateArray(calibration: Array<Array<number>>, to_calibrate: Array<Array<number>>) {
+    // Will modify to_calibrate
+    if(calibration == null){
+      // FIX: if the calibration array is not set, it returns the input array
       console.warn("Calibration array not set yet");
       return to_calibrate;
     }
-    var calibrated_array : number[][] = [[],[]]; // Needed to initialize or else error occurs
-    for(var i = 0; i< this.Zero.length; i++){
-      for(var j = 0; j < this.Zero[i].length; j++){
-        calibrated_array[i][j] = to_calibrate[i][j]-this.Zero[i][j];
+    for(var i = 0; i< calibration.length; i++){
+      for(var j = 0; j < calibration[i].length; j++){
+        to_calibrate[i][j] = calibration[i][j] - to_calibrate[i][j];
       }
     }
+  }
+
+  getBackCalibrated(to_calibrate: Array<Array<number>>){
+    var calibrated_array = []
+    // Coppy array
+    for(var i = 0; i< to_calibrate.length; i++){
+      calibrated_array.push([... to_calibrate[i]])
+    }
+    this.calibrateArray(this.Back, calibrated_array)
+    return calibrated_array;
+  }
+
+  getBottomCalibrated(to_calibrate: Array<Array<number>>){
+    var calibrated_array = []
+    // Coppy array
+    for(var i = 0; i< to_calibrate.length; i++){
+      calibrated_array.push([... to_calibrate[i]])
+    }
+    this.calibrateArray(this.Bottom, to_calibrate);
     return calibrated_array;
   }
 }

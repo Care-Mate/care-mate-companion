@@ -12,5 +12,5 @@ export abstract class BluetoothService {
     abstract enableBluetooth(): Promise<BluetoothEnabledResult>;
     abstract scanForDevices(): Promise<BluetoothScanResult>;
     abstract connectToDevice(address:string): Promise<void>;
-    abstract readPressureData(): Promise<Coordinate[]>;
+    abstract readPressureData(): Promise<Array<Array<number>>>;
 }
