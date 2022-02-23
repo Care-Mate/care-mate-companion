@@ -8,18 +8,23 @@
 </ion-header>
 
 <ion-content>
-
+  
   <ion-tabs>
-    <ion-tab-bar slot="bottom">
-      <ion-tab-button *ngFor="let t of appTabs">
-        <ion-icon [name]="t.icon"></ion-icon>
-        {{ t.title }}
+    <ion-tab-bar slot="bottom" selectedTab="both">
+      <ion-tab-button tab="back">
+        <ion-icon name="tablet-portrait-outline"></ion-icon>
+        Back
+      </ion-tab-button>
+
+      <ion-tab-button tab="both">
+        <ion-icon name="layers-outline"></ion-icon>
+        Both
+      </ion-tab-button>
+
+      <ion-tab-button tab="bottom">
+        <ion-icon name="tablet-landscape-outline"></ion-icon>
+        Bottom
       </ion-tab-button>
     </ion-tab-bar>
   </ion-tabs>
-
-  <br/>
-  <div id="heatmapContainer">
-    <div class="overlay"></div>
-  </div>
 </ion-content>

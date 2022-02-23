@@ -6,7 +6,26 @@ import { PressureMapPage } from './pressure-map.page';
 const routes: Routes = [
   {
     path: '',
-    component: PressureMapPage
+    component: PressureMapPage,
+    children: [
+      {
+        path: 'back',
+        loadChildren: () => import('./back/back.module').then( m => m.BackPageModule)
+      },
+      {
+        path: 'both',
+        loadChildren: () => import('./both/both.module').then( m => m.BothPageModule)
+      },
+      {
+        path: 'bottom',
+        loadChildren: () => import('./bottom/bottom.module').then( m => m.BottomPageModule)
+      }
+    ]
+  },
+  {
+    path: '',
+    redirectTo: 'both',
+    pathMatch: 'full'
   }
 ];
 
