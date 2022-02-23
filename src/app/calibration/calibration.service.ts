@@ -22,6 +22,7 @@ export class CalibrationService {
 
   // FIX: make private
   calibrateArray(calibration: Array<Array<number>>, to_calibrate: Array<Array<number>>) {
+    // Will modify to_calibrate
     if(calibration == null){
       // FIX: if the calibration array is not set, it returns the input array
       console.warn("Calibration array not set yet");
@@ -34,21 +35,23 @@ export class CalibrationService {
     }
   }
 
-  getBackCalibration(to_calibrate: Array<Array<number>>){
+  getBackCalibrated(to_calibrate: Array<Array<number>>){
     var calibrated_array = []
     // Coppy array
     for(var i = 0; i< to_calibrate.length; i++){
       calibrated_array.push([... to_calibrate[i]])
     }
-    return this.calibrateArray(this.Back, to_calibrate);
+    this.calibrateArray(this.Back, calibrated_array)
+    return calibrated_array;
   }
 
-  getBottomCalibration(to_calibrate: Array<Array<number>>){
+  getBottomCalibrated(to_calibrate: Array<Array<number>>){
     var calibrated_array = []
     // Coppy array
     for(var i = 0; i< to_calibrate.length; i++){
       calibrated_array.push([... to_calibrate[i]])
     }
-    return this.calibrateArray(this.Bottom, to_calibrate);
+    this.calibrateArray(this.Bottom, to_calibrate);
+    return calibrated_array;
   }
 }

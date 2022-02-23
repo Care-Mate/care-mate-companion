@@ -17,9 +17,9 @@ export class HC06BluetoothService implements BluetoothService {
         this.address = address;
         return BluetoothSerial.connect({address:this.address});
     }
-    readPressureData(): Promise<Coordinate[]> {
-        return new Promise<Coordinate[]>((resolve, reject) => {
-            var coords: Coordinate[] = [];
+    readPressureData(): Promise<Array<Array<number>>> {
+        return new Promise<Array<Array<number>>>((resolve, reject) => {
+            var coords: Array<Array<number>> = new Array<Array<number>>(8);
             BluetoothSerial.readUntil(
                 {
                     address: this.address, 
@@ -31,10 +31,10 @@ export class HC06BluetoothService implements BluetoothService {
                     for(var i = 1; 1<=8; i++) {
                         for(var j = 1; j<=8; j++) {
                             if(counter >= data.length) {
-                                coords.push({x: i, y: j, value: 0});
+                                coords[i].push(0);
                             }
                             else {
-                                coords.push({x: i, y: j, value: data.charCodeAt(counter)});
+                                coords[i].push(data.charCodeAt(counter));
                                 counter++;
                             }
                         }
