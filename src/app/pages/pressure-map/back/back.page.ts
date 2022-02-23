@@ -1,6 +1,8 @@
 import { Component, Host, OnInit, Optional } from '@angular/core';
+import { Platform } from '@ionic/angular';
 import * as h337 from 'heatmap.js';
 import { CalibrationService } from 'src/app/calibration/calibration.service';
+import { HeatmapService } from 'src/app/heatmap/heatmap.service';
 import { PressureMapPage } from '../pressure-map.page';
 
 @Component({
@@ -9,49 +11,28 @@ import { PressureMapPage } from '../pressure-map.page';
   styleUrls: ['./back.page.scss'],
 })
 export class BackPage implements OnInit {
-  private heatmapConfiguration : any = {
-    width: 400,
-    height: 400,
-    radius: 70,
-    visible: true,
-  };
   private heatmap : any;
-  private heatmapData : any[]; 
+  private heatmapConfig: any;
 
-  private xscale : number;
-  private yscale : number;
-  private xoffset : number;
-  private yoffset : number;
-
-  private calibrationService : CalibrationService;
+  private heatmapService : HeatmapService;
+  private platform : Platform;
 
   constructor (
-    private CalibrationService : CalibrationService,
+    private HeatmapService : HeatmapService,
+    private Platform : Platform
   )
   {
-    this.calibrationService = CalibrationService;
-
-    this.xscale = this.heatmapConfiguration.width / 8; // TODO: replace 8 with width obtained from service
-    this.yscale = this.heatmapConfiguration.height / 8; // TODO: ^^^
-    this.xoffset = this.xscale / 2;
-    this.yoffset = this.yscale / 2;
+    this.heatmapService = HeatmapService;
+    this.platform = Platform;
   }
 
   ngOnInit() {
-    this.heatmapConfiguration.container = document.getElementById('heatmapContainer'),
-    this.heatmap = h337.create(this.heatmapConfiguration);
+    this.heatmapService.setScale(this.platform.width());
+    this.heatmapConfig = this.heatmapService.getBackHeatmapConfiguration(document.getElementById("backHeatmapContainer"));
+    this.heatmap = h337.create(this.heatmapConfig);
+  }
 
-    this.heatmapData = [];
-
-    for (var i = 0; i < 8; i++) {
-      for (var j = 0; j < 8; j++) {
-        this.heatmapData.push({
-          x: i*this.xscale + this.xoffset,
-          y: j*this.yscale + this.yoffset,
-          value: Math.random()});
-      }
-    }
-
-    this.heatmap.setData({max: 1, min: 0, data: this.heatmapData});
+  ionViewDidEnter() {
+    this.heatmap.setData({max: 1, min: 0, data: this.heatmapService.getBackHeatmapData()});
   }
 }

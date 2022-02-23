@@ -26,12 +26,12 @@ export class BottomPage implements OnInit {
   }
 
   ngOnInit() {
-  }
-
-  ionViewDidEnter() {
     this.heatmapService.setScale(this.platform.width());
     this.heatmapConfig = this.heatmapService.getBottomHeatmapConfiguration(document.getElementById("bottomHeatmapContainer"));
     this.heatmap = h337.create(this.heatmapConfig);
+  }
+
+  ionViewDidEnter() {
     this.heatmap.setData({max: 1, min: 0, data: this.heatmapService.getBottomHeatmapData()});
   }
 }

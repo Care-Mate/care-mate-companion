@@ -57,8 +57,8 @@ export class HeatmapService {
     for (var i = 0; i < 8 ; i++) {
       for (var j = 0; j < 8; j++) {
         this.backHeatmapData.push({
-          x: i * this.xscale + this.xoffset,
-          y: j * this.yscale + this.yoffset,
+          x: Math.floor(i * this.xscale + this.xoffset),
+          y: Math.floor(j * this.yscale + this.yoffset),
           value: Math.random()
         })
       }
