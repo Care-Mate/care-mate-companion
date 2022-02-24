@@ -1,23 +1,31 @@
 import { Injectable } from '@angular/core';
+import { Storage } from '@ionic/storage-angular';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CalibrationService {
-  private Back: Array<Array<number>>;
-  private Bottom: Array<Array<number>>;
+  private back: Array<Array<number>>;
+  private bottom: Array<Array<number>>;
 
-  constructor() { 
-    this.Back = null;
-    this.Bottom = null;
+  constructor(private storage: Storage) { 
+    this.back = null;
+    this.bottom = null;
+  }
+
+  loadCalibrationData(back : Array<Array<number>>, bottom : Array<Array<number>>){
+    this.back = back;
+    this.bottom = bottom;
   }
 
   setBackCalibration(zero : Array<Array<number>>) {
-    this.Back = zero;
+    this.back = zero;
+    this.storage.set('back', this.back);
   }
 
   setBottomCalibration(zero : Array<Array<number>>) {
-    this.Bottom = zero;
+    this.bottom = zero;
+    this.storage.set('bottom', this.bottom);
   }
 
   // FIX: make private
@@ -41,7 +49,7 @@ export class CalibrationService {
     for(var i = 0; i< to_calibrate.length; i++){
       calibrated_array.push([... to_calibrate[i]])
     }
-    this.calibrateArray(this.Back, calibrated_array)
+    this.calibrateArray(this.back, calibrated_array)
     return calibrated_array;
   }
 
@@ -51,7 +59,7 @@ export class CalibrationService {
     for(var i = 0; i< to_calibrate.length; i++){
       calibrated_array.push([... to_calibrate[i]])
     }
-    this.calibrateArray(this.Bottom, to_calibrate);
+    this.calibrateArray(this.bottom, to_calibrate);
     return calibrated_array;
   }
 }
