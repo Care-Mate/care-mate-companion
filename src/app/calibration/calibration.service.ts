@@ -1,57 +1,65 @@
 import { Injectable } from '@angular/core';
+import { Storage } from '@ionic/storage-angular';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CalibrationService {
-  private Back: Array<Array<number>>;
-  private Bottom: Array<Array<number>>;
+  private back: Array<Array<number>>;
+  private bottom: Array<Array<number>>;
 
-  constructor() { 
-    this.Back = null;
-    this.Bottom = null;
+  constructor(private storage: Storage) { 
+    this.back = null;
+    this.bottom = null;
+  }
+
+  loadCalibrationData(back : Array<Array<number>>, bottom : Array<Array<number>>){
+    this.back = back;
+    this.bottom = bottom;
   }
 
   setBackCalibration(zero : Array<Array<number>>) {
-    this.Back = zero;
+    this.back = zero;
+    this.storage.set('back', this.back);
   }
 
   setBottomCalibration(zero : Array<Array<number>>) {
-    this.Bottom = zero;
+    this.bottom = zero;
+    this.storage.set('bottom', this.bottom);
   }
 
   // FIX: make private
-  calibrateArray(calibration: Array<Array<number>>, to_calibrate: Array<Array<number>>) {
-    // Will modify to_calibrate
+  calibrateArray(calibration: Array<Array<number>>, toCalibrate: Array<Array<number>>) {
+    // Will modify toCalibrate
     if(calibration == null){
       // FIX: if the calibration array is not set, it returns the input array
       console.warn("Calibration array not set yet");
-      return to_calibrate;
+      return toCalibrate;
     }
     for(var i = 0; i< calibration.length; i++){
       for(var j = 0; j < calibration[i].length; j++){
-        to_calibrate[i][j] = calibration[i][j] - to_calibrate[i][j];
+        toCalibrate[i][j] = calibration[i][j] - toCalibrate[i][j];
       }
     }
   }
 
-  getBackCalibrated(to_calibrate: Array<Array<number>>){
-    var calibrated_array = []
+  getBackCalibrated(toCalibrate: Array<Array<number>>){
+    var calibratedArray = []
     // Coppy array
-    for(var i = 0; i< to_calibrate.length; i++){
-      calibrated_array.push([... to_calibrate[i]])
+    for(var i = 0; i< toCalibrate.length; i++){
+      calibratedArray.push([... toCalibrate[i]])
     }
-    this.calibrateArray(this.Back, calibrated_array)
-    return calibrated_array;
+    this.calibrateArray(this.back, calibratedArray)
+    return calibratedArray;
   }
 
-  getBottomCalibrated(to_calibrate: Array<Array<number>>){
-    var calibrated_array = []
+  getBottomCalibrated(toCalibrate: Array<Array<number>>){
+    var calibratedArray = []
     // Coppy array
-    for(var i = 0; i< to_calibrate.length; i++){
-      calibrated_array.push([... to_calibrate[i]])
+    for(var i = 0; i< toCalibrate.length; i++){
+      calibratedArray.push([... toCalibrate[i]])
     }
-    this.calibrateArray(this.Bottom, to_calibrate);
-    return calibrated_array;
+    this.calibrateArray(this.bottom, toCalibrate);
+    return calibratedArray;
   }
 }
