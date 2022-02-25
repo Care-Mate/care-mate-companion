@@ -8,7 +8,27 @@
 </ion-header>
 
 <ion-content>
-  <ion-button class="horizontal-center" (click)="calibrate()">
-    Calibrate
-  </ion-button>
+  <ion-grid>
+    <ion-row class="ion-text-center ion-padding-horizontal">
+      <ion-col>
+        <ion-text>
+          <h1>
+            Pressure Pad Calibration
+          </h1>
+        </ion-text>
+        <div class="ion-margin-top">
+          <ion-text>
+            <h6>
+              Pressure pad calibration instructions.<br>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer tincidunt tincidunt rutrum. Nam eget mauris malesuada ipsum aliquam tincidunt. Morbi rutrum id mauris non pellentesque. Cras sit amet justo a leo dignissim accumsan. Nam eget vestibulum metus, in porttitor sapien. Aliquam ullamcorper fermentum rhoncus. Pellentesque vitae aliquet orci. Donec quis magna sed purus ullamcorper tempor ut ac ante. Sed hendrerit, magna in eleifend mollis, est orci varius urna, at dignissim ligula nibh quis erat. Fusce ante ex, fermentum ut consequat eu, tincidunt nec odio.
+            </h6>
+          </ion-text>
+          <ion-icon name="tablet-landscape-outline"></ion-icon>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-justify-content-center ion-margin-vertical">
+      <ion-button (click)="calibrate()">Calibrate</ion-button>
+    </ion-row>
+  </ion-grid>
 </ion-content>

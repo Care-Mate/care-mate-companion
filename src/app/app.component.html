@@ -8,7 +8,7 @@
   <ion-content>
     <ion-list>
       <ion-menu-toggle *ngFor="let p of appPages">
-        <ion-item [routerLink]="p.url" routerDirection="root">
+        <ion-item [routerLink]="p.url" routerDirection="root" routerLinkActive="selected">
           <ion-icon [name]="p.icon" slot="start"></ion-icon>
           {{ p.title }}
         </ion-item>

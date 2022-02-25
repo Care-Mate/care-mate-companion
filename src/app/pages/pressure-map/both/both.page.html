@@ -1,13 +1,29 @@
 <ion-content>
-  <ion-title>Back Pressure Pad</ion-title>
-  <br/>
-  <div id="bothBackHeatmapContainer" style="height: 500px">
-    <div class="overlay"></div>
-  </div>
-  <br/>
-  <ion-title>Bottom Pressure Pad</ion-title>
-  <br/>
-  <div id="bothBottomHeatmapContainer">
-    <div class="overlay"></div>
-  </div>
+  <ion-grid>
+
+    <ion-row class="ion-justify-content-center">
+      <ion-col class="ion-text-center">
+        <h1>Back Pressure Pad</h1>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+        <div id="bothBackHeatmapContainer" style="height: 500px">
+          <div class="overlay"></div>
+        </div>
+    </ion-row>
+
+    <ion-row class="ion-justify-content-center">
+      <ion-col class="ion-text-center">  
+        <h1>Bottom Pressure Pad</h1>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <div id="bothBottomHeatmapContainer">
+          <div class="overlay"></div>
+        </div>
+      </ion-col>
+    </ion-row>
+    
+  </ion-grid>
 </ion-content>
