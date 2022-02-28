@@ -15,14 +15,17 @@ export class LocalBluetoothService extends BluetoothService {
         throw new Error("Method not implemented.");
     }
     readPressureData(): void {
-        var coordinates: Array<Array<number>> = new Array<Array<number>>(8);
-        for(var i = 1; i<=8; i++)
+        var coordinates: Array<Array<number>> = new Array<Array<number>>();
+        for(var i = 0; i<8; i++)
         {
-            for(var j = 1; j<=8; j++)
+            coordinates.push(new Array<number>())
+            for(var j = 0; j<8; j++)
             {
                 coordinates[i].push(Math.random());
             }
         }
-        this.callbackEvent(coordinates);
+        if (this.callbackEvent) {
+            this.callbackEvent(coordinates);
+        }
     }    
 }
