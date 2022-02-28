@@ -38,7 +38,9 @@ export class HC06BluetoothService extends BluetoothService {
                         }
                     }
                 }
-                this.callbackEvent(coords);
+                if (this.callbackEvent) {
+                    this.callbackEvent(coords);
+                }
             }).catch(error => {
                 console.warn(error);
             });

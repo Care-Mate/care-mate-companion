@@ -68,17 +68,6 @@ export class HeatmapService {
   }
 
   getBackHeatmapData() {
-    /*this.backHeatmapData = [];
-    for (var i = 0; i < 8 ; i++) {
-      for (var j = 0; j < 8; j++) {
-        this.backHeatmapData.push({
-          x: Math.floor(i * this.xscale + this.xoffset),
-          y: Math.floor(j * this.yscale + this.yoffset),
-          value: Math.random()
-        })
-      }
-    }*/
-
     return this.backHeatmapData;
   }
 
