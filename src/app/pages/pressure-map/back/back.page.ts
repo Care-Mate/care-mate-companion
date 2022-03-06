@@ -1,6 +1,7 @@
 import { Component, Host, OnInit, Optional } from '@angular/core';
 import { Platform } from '@ionic/angular';
 import * as h337 from 'heatmap.js';
+import { LocalBluetoothService } from 'src/app/bluetooth/local-bluetooth.service';
 import { CalibrationService } from 'src/app/calibration/calibration.service';
 import { HeatmapService } from 'src/app/heatmap/heatmap.service';
 import { PressureMapPage } from '../pressure-map.page';
@@ -18,6 +19,7 @@ export class BackPage implements OnInit {
   private platform : Platform;
 
   constructor (
+    private btService : LocalBluetoothService,
     private HeatmapService : HeatmapService,
     private Platform : Platform
   )
@@ -33,6 +35,9 @@ export class BackPage implements OnInit {
   }
 
   ionViewDidEnter() {
+    this.heatmapService.setBackCallback(() => {
+      this.heatmap.setData({max: 1, min: 0, data: this.heatmapService.getBackHeatmapData()});
+    });
     this.heatmap.setData({max: 1, min: 0, data: this.heatmapService.getBackHeatmapData()});
   }
 }

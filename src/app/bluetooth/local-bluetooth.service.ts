@@ -3,7 +3,8 @@ import { BluetoothScanResult, BluetoothConnectOptions, BluetoothEnabledResult } 
 import { Coordinate, BluetoothService } from "./bluetooth.service";
 
 @Injectable({providedIn: 'root'})
-export class LocalBluetoothService implements BluetoothService {
+export class LocalBluetoothService extends BluetoothService {
+
     enableBluetooth(): Promise<BluetoothEnabledResult> {
         throw new Error("Method not implemented.");
     }
@@ -13,18 +14,18 @@ export class LocalBluetoothService implements BluetoothService {
     connectToDevice(address:string): Promise<void> {
         throw new Error("Method not implemented.");
     }
-    readPressureData(): Promise<Array<Array<number>>> {
-        return new Promise<Array<Array<number>>>((resolve, reject)=>{
-            var coordinates: Array<Array<number>> = new Array<Array<number>>(8);
-            for(var i = 1; i<=8; i++)
+    readPressureData(): void {
+        var coordinates: Array<Array<number>> = new Array<Array<number>>();
+        for(var i = 0; i<8; i++)
+        {
+            coordinates.push(new Array<number>())
+            for(var j = 0; j<8; j++)
             {
-                for(var j = 1; j<=8; j++)
-                {
-                    coordinates[i].push(Math.random());
-                }
+                coordinates[i].push(Math.random());
             }
-            resolve(coordinates);
-        });
-    }
-    
+        }
+        if (this.callbackEvent) {
+            this.callbackEvent(coordinates);
+        }
+    }    
 }
