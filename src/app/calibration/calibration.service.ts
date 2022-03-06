@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage-angular';
+import { LocalBluetoothService } from '../bluetooth/local-bluetooth.service';
+import { HC06BluetoothService } from '../bluetooth/hc06-bluetooth.service'
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +10,8 @@ export class CalibrationService {
   private back: Array<Array<number>>;
   private bottom: Array<Array<number>>;
 
-  constructor(private storage: Storage) { 
+  constructor(private storage: Storage, private bluetooth: LocalBluetoothService) { 
+    // FIX: Change to HCO6Bluetooth when testing bluetooth
     this.back = null;
     this.bottom = null;
   }
@@ -18,18 +21,39 @@ export class CalibrationService {
     this.bottom = bottom;
   }
 
-  setBackCalibration(zero : Array<Array<number>>) {
-    this.back = zero;
-    this.storage.set('back', this.back);
+  setBackCalibration(): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
+      this.bluetooth.readPressureData().then(data => {
+        this.back = data;
+        // Ensure data is actually set before resolving
+        this.storage.set('back',this.back).then(_ => {
+          resolve();
+        }).catch(error => {
+          reject(error)
+        });
+      }).catch(error => {
+        reject(error);
+      });
+    });
   }
 
-  setBottomCalibration(zero : Array<Array<number>>) {
-    this.bottom = zero;
-    this.storage.set('bottom', this.bottom);
+  setBottomCalibration(): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
+      this.bluetooth.readPressureData().then(data => {
+        this.bottom = data;
+        // Ensure data is actually set before resolving
+        this.storage.set('bottom',this.back).then(_ => {
+          resolve();
+        }).catch(error => {
+          reject(error)
+        });;
+      }).catch(error => {
+        reject(error);
+      });
+    });
   }
 
-  // FIX: make private
-  calibrateArray(calibration: Array<Array<number>>, toCalibrate: Array<Array<number>>) {
+  private calibrateArray(calibration: Array<Array<number>>, toCalibrate: Array<Array<number>>) {
     // Will modify toCalibrate
     if(calibration == null){
       // FIX: if the calibration array is not set, it returns the input array
