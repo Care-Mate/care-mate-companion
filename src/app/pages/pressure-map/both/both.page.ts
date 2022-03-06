@@ -39,6 +39,9 @@ export class BothPage implements OnInit {
   }
 
   ionViewDidEnter() {
+    this.heatmapService.setBackCallback(() => {
+      this.backHeatmap.setData({max: 1, min: 0, data: this.heatmapService.getBackHeatmapData()});
+    })
     this.backHeatmap.setData({max: 1, min: 0, data: this.heatmapService.getBackHeatmapData()});
 
     this.bottomHeatmap.setData({max: 1, min: 0, data: this.heatmapService.getBottomHeatmapData()});
