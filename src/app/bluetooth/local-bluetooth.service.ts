@@ -14,7 +14,7 @@ export class LocalBluetoothService extends BluetoothService {
     connectToDevice(address:string): Promise<void> {
         throw new Error("Method not implemented.");
     }
-    readPressureData(): void {
+    readPressureData(): Promise<Array<Array<number>>> {
         var coordinates: Array<Array<number>> = new Array<Array<number>>();
         for(var i = 0; i<8; i++)
         {
@@ -27,5 +27,8 @@ export class LocalBluetoothService extends BluetoothService {
         if (this.callbackEvent) {
             this.callbackEvent(coordinates);
         }
+        return new Promise<Array<Array<number>>>((resolve) => {
+            resolve(coordinates);
+        });
     }    
 }

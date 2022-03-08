@@ -36,7 +36,7 @@ export class CalibratePage implements OnInit {
     var arr_zero:number[][]=[[1,2,3],[23,24,25]];
     var arr_to_calibrate:number[][]=[[11,12,13],[33,34,35]];
 
-    this.calibrationService.setBottomCalibration(arr_zero);
+    this.calibrationService.setBottomCalibration();
     console.log(this.calibrationService.getBottomCalibrated(arr_to_calibrate));
 
     this.showLoading();
