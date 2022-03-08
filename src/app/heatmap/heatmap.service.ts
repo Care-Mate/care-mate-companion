@@ -51,6 +51,9 @@ export class HeatmapService {
     this.yscale = this.backHeatmapConfiguration.height / 8; // TODO: ^^^
     this.xoffset = this.xscale / 2;
     this.yoffset = this.yscale / 2;
+
+    this.backHeatmapConfiguration.radius = Math.floor(this.xscale * 1.4);
+    this.bottomHeatmapConfiguration.radius = Math.floor(this.xscale * 1.4);
   }
 
   setBackCallback(callback) {
