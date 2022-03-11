@@ -16,11 +16,25 @@ export class HeatmapService {
     var sub = interval(3000).subscribe((val) => {this.bluetoothService.readPressureData()});
   }
 
+  private gradient = {
+    '.1': '#440154FF',
+    '.2': '#482878FF',
+    '.3': '#3E4A89FF',
+    '.4': '#31688EFF',
+    '.5': '#26828EFF',
+    '.6': '#1F9E89FF',
+    '.7': '#35B779FF',
+    '.8': '#6DCD59FF',
+    '.9': '#B4DE2CFF',
+    '1': '#FDE725FF',
+  }
+
   private backHeatmapConfiguration : any = {
     width: 400,
     height: 400,
     radius: 70,
     visible: true,
+    gradient: this.gradient,
   };
 
   private bottomHeatmapConfiguration : any = {
@@ -28,6 +42,7 @@ export class HeatmapService {
     height: 400,
     radius: 70,
     visible: true,
+    gradient: this.gradient,
   };
 
   private backHeatmapData : any[] = [];
