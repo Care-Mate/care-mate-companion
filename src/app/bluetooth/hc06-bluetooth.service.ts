@@ -18,28 +18,32 @@ export class HC06BluetoothService extends BluetoothService {
         return BluetoothSerial.connect({address:this.address});
     }
     readPressureData(): void {
-        var coords: Array<Array<number>> = new Array<Array<number>>(8);
+        var coordinates: Array<Array<number>> = new Array<Array<number>>();
         BluetoothSerial.readUntil(
             {
                 address: this.address, 
-                delimiter: String.fromCharCode(255)
+                delimiter: String.fromCharCode(126)
             }).then(res => {
                 var data = res.data;
+                console.log(data);
                 var counter = 0;
 
-                for(var i = 1; 1<=8; i++) {
-                    for(var j = 1; j<=8; j++) {
+                for(var i = 0; i<8; i++)
+                {
+                    coordinates.push(new Array<number>())
+                    for(var j = 0; j<8; j++)
+                    {
                         if(counter >= data.length) {
-                            coords[i].push(0);
+                            coordinates[i].push(0);
                         }
                         else {
-                            coords[i].push(data.charCodeAt(counter));
+                            coordinates[i].push(data.charCodeAt(counter));
                             counter++;
                         }
                     }
                 }
                 if (this.callbackEvent) {
-                    this.callbackEvent(coords);
+                    this.callbackEvent(coordinates);
                 }
             }).catch(error => {
                 console.warn(error);
