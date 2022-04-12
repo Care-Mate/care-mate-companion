@@ -10,7 +10,7 @@ export class CalibrationService {
   private back: Array<Array<number>>;
   private bottom: Array<Array<number>>;
 
-  constructor(private storage: Storage, private bluetooth: LocalBluetoothService) { 
+  constructor(private storage: Storage, private bluetooth: HC06BluetoothService) { 
     // FIX: Change to HCO6Bluetooth when testing bluetooth
     this.back = null;
     this.bottom = null;
