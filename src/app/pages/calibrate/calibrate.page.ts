@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LoadingController, ToastController } from '@ionic/angular';
+import { BluetoothService } from 'src/app/bluetooth/bluetooth.service';
+import { LocalBluetoothService } from 'src/app/bluetooth/local-bluetooth.service';
 import { CalibrationService } from 'src/app/calibration/calibration.service';
 
 @Component({
@@ -12,7 +14,11 @@ export class CalibratePage implements OnInit {
   private loading:any;
   private toast:any;
 
-  constructor(private loadingController:LoadingController, private toastController:ToastController, private calibrationService:CalibrationService) { }
+  constructor(
+    private loadingController:LoadingController,
+    private toastController:ToastController,
+    private calibrationService:CalibrationService,
+    private bluetoothService:LocalBluetoothService) { }
 
   ngOnInit() {
   }
@@ -21,7 +27,7 @@ export class CalibratePage implements OnInit {
     this.loading = await this.loadingController.create({
       message: 'Calibrating...'
     });
-    this.loading.present();
+    await this.loading.present();
   }
 
   async openToast(message) {
@@ -29,22 +35,21 @@ export class CalibratePage implements OnInit {
       message,
       duration: 1500
     });
-    this.toast.present();
+    await this.toast.present();
   }
 
-  calibrate() {
-    var arr_zero:number[][]=[[1,2,3],[23,24,25]];
-    var arr_to_calibrate:number[][]=[[11,12,13],[33,34,35]];
-
-    this.calibrationService.setBottomCalibration();
-    console.log(this.calibrationService.getBottomCalibrated(arr_to_calibrate));
-
-    this.showLoading();
-    setTimeout(() => {
+  async calibrate() {
+    debugger;
+    await this.showLoading();
+    var arr_to_calibrate =  Array(8).fill(Array(8).fill(0));
+    this.calibrationService.setBottomCalibration().then(() => {
       this.loading.dismiss();
-      this.openToast('Calibrated successfully');
-    }, 1500);
-
-    console.log('Calibrated');
+      this.openToast("Calibrated successfully");
+      console.log(this.calibrationService.getBottomCalibrated(arr_to_calibrate));
+    })
+    .catch(() => {
+      this.loading.dismiss();
+      this.openToast("Calibration failed. Try again in a moment.");
+    });
   }
 }

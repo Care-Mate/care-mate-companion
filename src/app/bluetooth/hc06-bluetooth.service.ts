@@ -1,6 +1,5 @@
 import { Injectable } from "@angular/core";
 import { BluetoothSerial, BluetoothScanResult, BluetoothConnectOptions, BluetoothEnabledResult } from "capacitor-bluetooth-serial";
-import { resolve } from "dns";
 import { Coordinate, BluetoothService } from "./bluetooth.service";
 
 @Injectable({providedIn: 'root'})
