@@ -86,7 +86,7 @@ export class CalibrationService {
     }
     for(var i = 0; i< calibration.length; i++){
       for(var j = 0; j < calibration[i].length; j++){
-        toCalibrate[i][j] = calibration[i][j] - toCalibrate[i][j];
+        toCalibrate[i][j] = toCalibrate[i][j] - calibration[i][j];
       }
     }
   }
@@ -107,7 +107,7 @@ export class CalibrationService {
     for(var i = 0; i< toCalibrate.length; i++){
       calibratedArray.push([... toCalibrate[i]])
     }
-    this.calibrateData(this.bottom, toCalibrate);
+    this.calibrateArray(this.bottom, calibratedArray);
     return calibratedArray;
   }
 }
