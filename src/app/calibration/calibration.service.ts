@@ -21,6 +21,30 @@ export class CalibrationService {
     this.bottom = bottom;
   }
 
+  resetBackCalibration(): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
+      this.back = null;
+      // Ensure data is actually set before resolving
+      this.storage.set('back',null).then(_ => {
+        resolve();
+      }).catch(error => {
+        reject(error)
+      });
+  });
+  }
+  
+  resetBottomCalibration(): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
+        this.bottom = null;
+        // Ensure data is actually set before resolving
+        this.storage.set('bottom',null).then(_ => {
+          resolve();
+        }).catch(error => {
+          reject(error)
+        });
+    });
+  }
+
   setBackCalibration(): Promise<void> {
     return new Promise<void>((resolve, reject) => {
       this.bluetooth.readPressureData().then(data => {
@@ -53,7 +77,7 @@ export class CalibrationService {
     });
   }
 
-  private calibrateArray(calibration: Array<Array<number>>, toCalibrate: Array<Array<number>>) {
+  private calibrateData(calibration: Array<Array<number>>, toCalibrate: Array<Array<number>>) {
     // Will modify toCalibrate
     if(calibration == null){
       // FIX: if the calibration array is not set, it returns the input array
@@ -73,7 +97,7 @@ export class CalibrationService {
     for(var i = 0; i< toCalibrate.length; i++){
       calibratedArray.push([... toCalibrate[i]])
     }
-    this.calibrateArray(this.back, calibratedArray)
+    this.calibrateData(this.back, calibratedArray)
     return calibratedArray;
   }
 
