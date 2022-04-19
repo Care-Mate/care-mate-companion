@@ -47,7 +47,6 @@ export class CalibratePage implements OnInit {
   }
 
   async calibrateBack() {
-    debugger;
     await this.showLoading('Calibrating...');
     var arr_to_calibrate =  Array(8).fill(Array(8).fill(0));
     this.calibrationService.setBackCalibration().then(() => {
@@ -60,7 +59,6 @@ export class CalibratePage implements OnInit {
   }
 
   async calibrateBottom() {
-    debugger;
     await this.showLoading('Calibrating...');
     var arr_to_calibrate =  Array(8).fill(Array(8).fill(0));
     this.calibrationService.setBottomCalibration().then(() => {
