@@ -20,14 +20,22 @@ export class CalibratePage implements OnInit {
     private calibrationService:CalibrationService,
     private bluetoothService:LocalBluetoothService) { }
 
-  ngOnInit() {
-  }
+  ngOnInit() { }
 
-  async showLoading() {
+  async showLoading(message) {
     this.loading = await this.loadingController.create({
-      message: 'Calibrating...'
+      message
     });
     await this.loading.present();
+  }
+
+  dismissLoading(message) {
+    this.loadingController.dismiss().then((res) => {
+      console.log('Loading dismissed', res);
+      this.openToast(message);
+    }).catch((error) => {
+      console.log('ERROR: No loading to dimiss', error);
+    });
   }
 
   async openToast(message) {
@@ -38,18 +46,49 @@ export class CalibratePage implements OnInit {
     await this.toast.present();
   }
 
-  async calibrate() {
+  async calibrateBack() {
     debugger;
-    await this.showLoading();
+    await this.showLoading('Calibrating...');
     var arr_to_calibrate =  Array(8).fill(Array(8).fill(0));
-    this.calibrationService.setBottomCalibration().then(() => {
-      this.loading.dismiss();
-      this.openToast("Calibrated successfully");
-      console.log(this.calibrationService.getBottomCalibrated(arr_to_calibrate));
+    this.calibrationService.setBackCalibration().then(() => {
+      console.log(this.calibrationService.getBackCalibrated(arr_to_calibrate));
+      this.dismissLoading('Calibrated successfully');
     })
     .catch(() => {
-      this.loading.dismiss();
-      this.openToast("Calibration failed. Try again in a moment.");
+      this.dismissLoading('Calibration failed. Try again in a moment.');
+    });
+  }
+
+  async calibrateBottom() {
+    debugger;
+    await this.showLoading('Calibrating...');
+    var arr_to_calibrate =  Array(8).fill(Array(8).fill(0));
+    this.calibrationService.setBottomCalibration().then(() => {
+      console.log(this.calibrationService.getBottomCalibrated(arr_to_calibrate));
+      this.dismissLoading('Calibrated successfully');
+    })
+    .catch(() => {
+      this.dismissLoading('Calibration failed. Try again in a moment.');
+    });
+  }
+
+  async resetBack() {
+    await this.showLoading('Reseting...');
+    this.calibrationService.resetBackCalibration().then(() => {
+      this.dismissLoading('Reset successfully');
+    })
+    .catch(() => {
+      this.dismissLoading('Reset failed. Try again in a moment');
+    });
+  }
+
+  async resetBottom() {
+    await this.showLoading('Reseting...');
+    this.calibrationService.resetBottomCalibration().then(() => {
+      this.dismissLoading('Reset successfully');
+    })
+    .catch(() => {
+      this.dismissLoading('Reset failed. Try again in a moment');
     });
   }
 }
