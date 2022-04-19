@@ -1,21 +1,24 @@
 <ion-content>
-  <ion-grid>
+  <ion-grid class="content-pad">
 
     <ion-row class="ion-justify-content-center">
       <ion-col class="ion-text-center">
         <h1>Back Pressure Pad</h1>
       </ion-col>
     </ion-row>
+
     <ion-row>
-      <div class="legend">
-        Legend: &nbsp;&nbsp;&nbsp; 0%
-        <div class="square" id="s1"></div>
-        <div class="square" id="s2"></div>
-        <div class="square" id="s3"></div>
-        <div class="square" id="s4"></div>
-        <div class="square" id="s5"></div> 100%
-      </div>
+      <ion-col class="legend">
+        <ion-col size="auto">0%</ion-col>
+        <ion-col>
+          <div class="bar-container">
+            <div class="bar"></div>
+          </div>
+        </ion-col>
+        <ion-col size="auto">100%</ion-col>
+      </ion-col>
     </ion-row>
+
     <ion-row>
         <div id="bothBackHeatmapContainer" style="height: 500px">
           <div class="overlay"></div>
@@ -27,16 +30,19 @@
         <h1>Bottom Pressure Pad</h1>
       </ion-col>
     </ion-row>
+
     <ion-row>
-      <div class="legend">
-        Legend: &nbsp;&nbsp;&nbsp; 0%
-        <div class="square" id="s1"></div>
-        <div class="square" id="s2"></div>
-        <div class="square" id="s3"></div>
-        <div class="square" id="s4"></div>
-        <div class="square" id="s5"></div> 100%
-      </div>
+      <ion-col class="legend">
+        <ion-col size="auto">0%</ion-col>
+        <ion-col>
+          <div class="bar-container">
+            <div class="bar"></div>
+          </div>
+        </ion-col>
+        <ion-col size="auto">100%</ion-col>
+      </ion-col>
     </ion-row>
+
     <ion-row>
       <ion-col>
         <div id="bothBottomHeatmapContainer">

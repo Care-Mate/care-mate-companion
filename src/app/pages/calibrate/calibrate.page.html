@@ -19,8 +19,15 @@
         <div class="ion-margin-top">
           <ion-text>
             <h6>
-              Pressure pad calibration instructions.<br>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer tincidunt tincidunt rutrum. Nam eget mauris malesuada ipsum aliquam tincidunt. Morbi rutrum id mauris non pellentesque. Cras sit amet justo a leo dignissim accumsan. Nam eget vestibulum metus, in porttitor sapien. Aliquam ullamcorper fermentum rhoncus. Pellentesque vitae aliquet orci. Donec quis magna sed purus ullamcorper tempor ut ac ante. Sed hendrerit, magna in eleifend mollis, est orci varius urna, at dignissim ligula nibh quis erat. Fusce ante ex, fermentum ut consequat eu, tincidunt nec odio.
+              Place the sensor on an area indicated by the 
+              <a href="https://uark-my.sharepoint.com/:w:/r/personal/jagoff_uark_edu/_layouts/15/Doc.aspx?sourcedoc=%7B75B1B6CC-4C6F-476E-A237-D978D1DE0AD2%7D&file=Instruction%20Manual.docx&action=default&mobileredirect=true">
+                instruction manual</a>. 
+              Pair the pulse oximetry monitor with the sensor. 
+              Place the strap across the patient’s lap and loosely attach it with the fasteners. Wait 1 minute for a reading. 
+              Watch the value for 10 seconds and if it hasn’t changed observe the value. 
+              If it’s at or below 92% press calibrate if not repeat tighten the strap to the next level and repeat the procedure. 
+              Repeat the process for all points indicated by the manual.
+              <br>
             </h6>
           </ion-text>
           <ion-icon name="tablet-landscape-outline"></ion-icon>
@@ -28,7 +35,16 @@
       </ion-col>
     </ion-row>
     <ion-row class="ion-justify-content-center ion-margin-vertical">
-      <ion-button (click)="calibrate()">Calibrate</ion-button>
+      <ion-button (click)="calibrateBack()">Calibrate Back</ion-button>
+    </ion-row>
+    <ion-row class="ion-justify-content-center ion-margin-vertical">
+      <ion-button (click)="calibrateBottom()">Calibrate Bottom</ion-button>
+    </ion-row>
+    <ion-row class="ion-justify-content-center ion-margin-vertical">
+      <ion-button color="danger" (click)="resetBack()">Reset Back</ion-button>
+    </ion-row>
+    <ion-row class="ion-justify-content-center ion-margin-vertical">
+      <ion-button color="danger" (click)="resetBottom()">Reset Bottom</ion-button>
     </ion-row>
   </ion-grid>
 </ion-content>

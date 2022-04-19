@@ -107,7 +107,7 @@ export class CalibrationService {
     for(var i = 0; i< toCalibrate.length; i++){
       calibratedArray.push([... toCalibrate[i]])
     }
-    this.calibrateArray(this.bottom, calibratedArray);
+    this.calibrateData(this.bottom, calibratedArray);
     return calibratedArray;
   }
 }
