@@ -57,3 +57,10 @@ Verify that the following lines are included:
 5. Connect an Android device to your computer.
 
 6. Select the attached device in the dropdown menu next to the run button (on the top toolbar), then click the "Run" button to build, install, and launch the application on the Android device.
+
+7. After any change in the Ionic web assets, run the command
+```
+ionic capacitor copy android
+```
+to load the new artifacts into the location expected by Android Studio.
+
