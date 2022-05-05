@@ -30,6 +30,9 @@ npm ci
 ionic serve
 ```
 
+# Quick Run
+**If no changes to the code are desired**, you can open the provided Android Studio project and run it in a Virtual Android device or connected Android Device. To do so, open Android Studio, and then direct it to open the `android` folder as a project. Android Studio will detect the project files and begin a gradle sync to fetch required packages. Once this sync is complete, you can run the project in the AVD emulator or on a connected Android Ddevice.
+
 # Deployment to an Android Device
 These steps are needed to put the Care-Mate companion application on a physical Android device.
 
@@ -63,4 +66,3 @@ Verify that the following lines are included:
 ionic capacitor copy android
 ```
 to load the new artifacts into the location expected by Android Studio.
-
